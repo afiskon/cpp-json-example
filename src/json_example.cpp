@@ -149,9 +149,12 @@ int main() {
     User user = readUser();
     std::cout << user << std::endl;
 
-    rapidjson::Value id_val;
-    id_val.SetUint64(user.getId());
-    doc.AddMember("id", id_val, doc.GetAllocator());
+    rapidjson::Value json_val;
+    json_val.SetUint64(user.getId());
+    doc.AddMember("id", json_val, doc.GetAllocator());
+
+    json_val.SetString(user.getName().c_str(), doc.GetAllocator());
+    doc.AddMember("name", json_val, doc.GetAllocator());
     
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
