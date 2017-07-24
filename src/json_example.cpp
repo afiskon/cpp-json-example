@@ -1,9 +1,9 @@
 /* vim: set ai et ts=4 sw=4: */
 
 #include "rapidjson/document.h"
+#include "rapidjson/prettywriter.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/writer.h"
-#include "rapidjson/prettywriter.h"
 #include <cstdint>
 #include <iostream>
 #include <sstream>
@@ -42,10 +42,7 @@ public:
     rapidjson::Document toJSON() {
         rapidjson::Document doc;
         auto& allocator = doc.GetAllocator();
-        doc.SetArray()
-            .PushBack(_year, allocator)
-            .PushBack(_month, allocator)
-            .PushBack(_day, allocator);
+        doc.SetArray().PushBack(_year, allocator).PushBack(_month, allocator).PushBack(_day, allocator);
         return doc;
     }
 
