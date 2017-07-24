@@ -85,7 +85,7 @@ public:
         if(!doc.IsObject())
             throw std::runtime_error("User::fromJSON() - document should be an object");
 
-        static const char* members[] = {"id", "name", "phone", "birthday"};
+        static const char* members[] = { "id", "name", "phone", "birthday" };
         for(size_t i = 0; i < sizeof(members) / sizeof(members[0]); i++) {
             if(!doc.HasMember(members[i]))
                 throw std::runtime_error("User::fromJSON() - invalid JSON, missing fields");
