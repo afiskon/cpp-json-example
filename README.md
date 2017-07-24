@@ -1,5 +1,6 @@
 # cpp-json-example
-Work in progress...
+
+Simple example of working with JSON in C++.
 
 How to build:
 
