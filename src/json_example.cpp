@@ -156,6 +156,9 @@ int main() {
     json_val.SetString(user.getName().c_str(), doc.GetAllocator());
     doc.AddMember("name", json_val, doc.GetAllocator());
     
+    json_val.SetUint64(user.getPhone());
+    doc.AddMember("phone", json_val, doc.GetAllocator());
+
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
     doc.Accept(writer);
