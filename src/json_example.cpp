@@ -93,21 +93,22 @@ public:
     rapidjson::Document toJSON() {
         rapidjson::Value json_val;
         rapidjson::Document doc;
+        auto& allocator = doc.GetAllocator();
 
         doc.SetObject();
 
         json_val.SetUint64(_id);
-        doc.AddMember("id", json_val, doc.GetAllocator());
+        doc.AddMember("id", json_val, allocator);
 
-        json_val.SetString(_name.c_str(), doc.GetAllocator());
-        doc.AddMember("name", json_val, doc.GetAllocator());
+        json_val.SetString(_name.c_str(), allocator);
+        doc.AddMember("name", json_val, allocator);
 
         // !!! see http://rapidjson.org/md_doc_tutorial.html#DeepCopyValue
-        json_val.CopyFrom(_birthday.toJSON(), doc.GetAllocator());
-        doc.AddMember("birthday", json_val, doc.GetAllocator());
+        json_val.CopyFrom(_birthday.toJSON(), allocator);
+        doc.AddMember("birthday", json_val, allocator);
 
         json_val.SetUint64(_phone);
-        doc.AddMember("phone", json_val, doc.GetAllocator());
+        doc.AddMember("phone", json_val, allocator);
 
         return doc;
     }
