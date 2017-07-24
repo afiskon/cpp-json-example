@@ -17,7 +17,7 @@ public:
       , _day(day) {
     }
 
-    static Date fromJSON(const rapidjson::Document& doc) {
+    static Date fromJSON(const rapidjson::Value& doc) {
         if(!doc.IsArray())
             throw std::runtime_error("Date::fromJSON - document is not an array");
 
@@ -81,7 +81,7 @@ public:
       , _birthday(birthday) {
     }
 
-    static User fromJSON(const rapidjson::Document& doc) {
+    static User fromJSON(const rapidjson::Value& doc) {
         if(!doc.IsObject())
             throw std::runtime_error("User::fromJSON() - document should be an object");
 
@@ -91,13 +91,13 @@ public:
                 throw std::runtime_error("User::fromJSON() - invalid JSON, missing fields");
         }
 
-        if(!doc["id"].IsInt())
+        if(!doc["id"].IsNumber())
             throw std::runtime_error("User::fromJSON() - invalid JSON, `id` should be an integer");
 
         if(!doc["name"].IsString())
             throw std::runtime_error("User::fromJSON() - invalid JSON, `name` should be a string");
 
-        if(!doc["phone"].IsInt())
+        if(!doc["phone"].IsNumber())
             throw std::runtime_error("User::fromJSON() - invalid JSON, `phone` should be an integer");
 
         if(!doc["birthday"].IsArray())
@@ -106,10 +106,9 @@ public:
         uint64_t id = doc["id"].GetUint64();
         std::string name = doc["name"].GetString();
         uint64_t phone = doc["phone"].GetUint64();
-//        Date birthday = Date::fromJSON(rapidjson::Document(doc["birthday"]));
+        Date birthday = Date::fromJSON(doc["birthday"]);
 
-        Date fake(1, 2, 3);
-        User result(id, name, phone, fake);
+        User result(id, name, phone, birthday);
         return result;
     }
 
@@ -126,7 +125,7 @@ public:
         json_val.SetString(_name.c_str(), allocator);
         doc.AddMember("name", json_val, allocator);
 
-        // !!! see http://rapidjson.org/md_doc_tutorial.html#DeepCopyValue
+        // see http://rapidjson.org/md_doc_tutorial.html#DeepCopyValue
         json_val.CopyFrom(_birthday.toJSON(), allocator);
         doc.AddMember("birthday", json_val, allocator);
 
@@ -244,17 +243,6 @@ int main() {
 
         User decodedUser = User::fromJSON(doc);
         std::cout << decodedUser << std::endl;
-    }
-
-    {
-        rapidjson::Document doc = user.getBirthday().toJSON();
-        rapidjson::StringBuffer buffer;
-        rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-        doc.Accept(writer);
-        std::cout << buffer.GetString() << std::endl;
-
-        Date decodedDate = Date::fromJSON(doc);
-        std::cout << decodedDate << std::endl;
     }
 
     return 0;
