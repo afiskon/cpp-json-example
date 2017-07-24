@@ -81,6 +81,38 @@ public:
       , _birthday(birthday) {
     }
 
+    static User fromJSON(const rapidjson::Document& doc) {
+        if(!doc.IsObject())
+            throw std::runtime_error("User::fromJSON() - document should be an object");
+
+        static const char* members[] = {"id", "name", "phone", "birthday"};
+        for(size_t i = 0; i < sizeof(members) / sizeof(members[0]); i++) {
+            if(!doc.HasMember(members[i]))
+                throw std::runtime_error("User::fromJSON() - invalid JSON, missing fields");
+        }
+
+        if(!doc["id"].IsInt())
+            throw std::runtime_error("User::fromJSON() - invalid JSON, `id` should be an integer");
+
+        if(!doc["name"].IsString())
+            throw std::runtime_error("User::fromJSON() - invalid JSON, `name` should be a string");
+
+        if(!doc["phone"].IsInt())
+            throw std::runtime_error("User::fromJSON() - invalid JSON, `phone` should be an integer");
+
+        if(!doc["birthday"].IsArray())
+            throw std::runtime_error("User::fromJSON() - invalid JSON, `birthday` should be an array");
+
+        uint64_t id = doc["id"].GetUint64();
+        std::string name = doc["name"].GetString();
+        uint64_t phone = doc["phone"].GetUint64();
+//        Date birthday = Date::fromJSON(rapidjson::Document(doc["birthday"]));
+
+        Date fake(1, 2, 3);
+        User result(id, name, phone, fake);
+        return result;
+    }
+
     rapidjson::Document toJSON() {
         rapidjson::Value json_val;
         rapidjson::Document doc;
@@ -209,6 +241,9 @@ int main() {
         rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
         doc.Accept(writer);
         std::cout << buffer.GetString() << std::endl;
+
+        User decodedUser = User::fromJSON(doc);
+        std::cout << decodedUser << std::endl;
     }
 
     {
