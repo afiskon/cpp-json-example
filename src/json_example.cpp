@@ -2,7 +2,7 @@
 
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
-#include "rapidjson/writer.h"
+// #include "rapidjson/writer.h"
 #include <cstdint>
 #include <iostream>
 
@@ -78,10 +78,6 @@ public:
         return *this;
     }
 
-    // not sure yet whether User should be copyable/movable
-    User(User const&) = delete;
-    void operator=(User const&) = delete;
-
 private:
     uint32_t _id;
     std::string _name;
@@ -89,7 +85,34 @@ private:
     Date _birthday;
 };
 
+std::ostream& operator<<(std::ostream& os, const Date& date) {
+    os << "Date(year = " << date.getYear() << ", month = " << (int)date.getMonth() << ", day = " << (int)date.getDay() << ")";
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const User& user) {
+    os << "User(id = " << user.getId() << ", name = " << user.getName() << ", phone = " << user.getPhone() << ", birthday =  " << user.getBirthday() << ")";
+    return os;
+}
+
+Date readDate() {
+    uint16_t year, month, day;
+
+    std::cout << "Year: ";
+    std::cin >> year;
+
+    std::cout << "Month: ";
+    std::cin >> month;
+
+    std::cout << "Day: ";
+    std::cin >> day;
+
+    Date result(year, (uint8_t)month, (uint8_t)day);
+    return result;
+}
+
 int main() {
-    std::cout << "Hello!" << std::endl;
+    Date birthday = readDate();
+    std::cout << birthday << std::endl;
     return 0;
 }
