@@ -3,6 +3,7 @@
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/writer.h"
+#include "rapidjson/prettywriter.h"
 #include <cstdint>
 #include <iostream>
 #include <sstream>
@@ -40,10 +41,11 @@ public:
 
     rapidjson::Document toJSON() {
         rapidjson::Document doc;
-        doc.SetArray();
-        doc.PushBack(_year, doc.GetAllocator());
-        doc.PushBack(_month, doc.GetAllocator());
-        doc.PushBack(_day, doc.GetAllocator());
+        auto& allocator = doc.GetAllocator();
+        doc.SetArray()
+            .PushBack(_year, allocator)
+            .PushBack(_month, allocator)
+            .PushBack(_day, allocator);
         return doc;
     }
 
@@ -99,6 +101,9 @@ public:
 
         json_val.SetString(_name.c_str(), doc.GetAllocator());
         doc.AddMember("name", json_val, doc.GetAllocator());
+
+        rapidjson::Document birthdayDoc = _birthday.toJSON();
+        doc.AddMember("birthday", birthdayDoc, doc.GetAllocator());
 
         json_val.SetUint64(_phone);
         doc.AddMember("phone", json_val, doc.GetAllocator());
@@ -176,7 +181,8 @@ int main() {
     {
         rapidjson::Document doc = user.toJSON();
         rapidjson::StringBuffer buffer;
-        rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+        // rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+        rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
         doc.Accept(writer);
         std::cout << buffer.GetString() << std::endl;
     }
