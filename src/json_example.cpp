@@ -5,6 +5,7 @@
 // #include "rapidjson/writer.h"
 #include <cstdint>
 #include <iostream>
+#include <sstream>
 
 class Date {
 public:
@@ -45,20 +46,20 @@ private:
 
 class User {
 public:
-    User(uint32_t id, const std::string& name, uint32_t phone, Date birthday)
+    User(uint64_t id, const std::string& name, uint64_t phone, Date birthday)
       : _id(id)
       , _name(name)
       , _phone(phone)
       , _birthday(birthday) {
     }
 
-    uint32_t getId() const {
+    uint64_t getId() const {
         return _id;
     }
     const std::string& getName() const {
         return _name;
     }
-    uint32_t getPhone() const {
+    uint64_t getPhone() const {
         return _phone;
     }
     Date getBirthday() const {
@@ -69,7 +70,7 @@ public:
         _name = name;
         return *this;
     }
-    User& setPhone(uint32_t phone) {
+    User& setPhone(uint64_t phone) {
         _phone = phone;
         return *this;
     }
@@ -79,9 +80,9 @@ public:
     }
 
 private:
-    uint32_t _id;
+    uint64_t _id;
     std::string _name;
-    uint32_t _phone;
+    uint64_t _phone;
     Date _birthday;
 };
 
@@ -93,7 +94,7 @@ std::ostream& operator<<(std::ostream& os, const Date& date) {
 
 std::ostream& operator<<(std::ostream& os, const User& user) {
     os << "User(id = " << user.getId() << ", name = " << user.getName() << ", phone = " << user.getPhone()
-       << ", birthday =  " << user.getBirthday() << ")";
+       << ", birthday = " << user.getBirthday() << ")";
     return os;
 }
 
@@ -113,8 +114,31 @@ Date readDate() {
     return result;
 }
 
-int main() {
+User readUser() {
+    uint64_t id;
+    std::string name;
+    uint64_t phone;
+
+    std::cout << "Id: ";
+    std::cin >> id;
+    std::cin.get(); // ignore \n
+    
+    std::cout << "Name: ";
+    std::getline(std::cin, name);
+
+    std::cout << "Phone: ";
+    std::cin >> phone;
+
+    std::cout << "--- Birthday ---" << std::endl;
     Date birthday = readDate();
-    std::cout << birthday << std::endl;
+    std::cout << "----------------" << std::endl;
+
+    User result(id, name, phone, birthday);
+    return result;
+}
+
+int main() {
+    User user = readUser();
+    std::cout << user << std::endl;
     return 0;
 }
