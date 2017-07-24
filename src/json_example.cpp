@@ -231,6 +231,8 @@ User readUser() {
 
 int main() {
     User user = readUser();
+
+    std::cout << "Original object:" << std::endl;
     std::cout << user << std::endl;
 
     {
@@ -239,9 +241,13 @@ int main() {
         // rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
         rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
         doc.Accept(writer);
+
+        std::cout << "Serialized:" << std::endl;
         std::cout << buffer.GetString() << std::endl;
 
         User decodedUser = User::fromJSON(doc);
+
+        std::cout << "Deserialized:" << std::endl;
         std::cout << decodedUser << std::endl;
     }
 
