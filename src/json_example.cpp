@@ -86,12 +86,14 @@ private:
 };
 
 std::ostream& operator<<(std::ostream& os, const Date& date) {
-    os << "Date(year = " << date.getYear() << ", month = " << (int)date.getMonth() << ", day = " << (int)date.getDay() << ")";
+    os << "Date(year = " << date.getYear() << ", month = " << (int)date.getMonth() << ", day = " << (int)date.getDay()
+       << ")";
     return os;
 }
 
 std::ostream& operator<<(std::ostream& os, const User& user) {
-    os << "User(id = " << user.getId() << ", name = " << user.getName() << ", phone = " << user.getPhone() << ", birthday =  " << user.getBirthday() << ")";
+    os << "User(id = " << user.getId() << ", name = " << user.getName() << ", phone = " << user.getPhone()
+       << ", birthday =  " << user.getBirthday() << ")";
     return os;
 }
 

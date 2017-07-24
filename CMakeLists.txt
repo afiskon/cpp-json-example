@@ -34,6 +34,6 @@ endif()
 add_executable(json_example src/json_example.cpp)
 target_link_libraries(json_example)
 
-file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.h)
+file(GLOB_RECURSE ALL_SOURCE_FILES src/*.cpp include/*.h)
 add_custom_target(format
     COMMAND clang-format --style=file -i ${ALL_SOURCE_FILES} )
