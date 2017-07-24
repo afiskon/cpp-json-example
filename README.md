@@ -1,2 +1,13 @@
 # cpp-json-example
 Work in progress...
+
+How to build:
+
+```
+git submodule init
+git submodule update
+mkdir build
+cd build
+cmake ..
+make
+```
