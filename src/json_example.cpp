@@ -102,8 +102,9 @@ public:
         json_val.SetString(_name.c_str(), doc.GetAllocator());
         doc.AddMember("name", json_val, doc.GetAllocator());
 
-        rapidjson::Document birthdayDoc = _birthday.toJSON();
-        doc.AddMember("birthday", birthdayDoc, doc.GetAllocator());
+        // !!! see http://rapidjson.org/md_doc_tutorial.html#DeepCopyValue
+        json_val.CopyFrom(_birthday.toJSON(), doc.GetAllocator());
+        doc.AddMember("birthday", json_val, doc.GetAllocator());
 
         json_val.SetUint64(_phone);
         doc.AddMember("phone", json_val, doc.GetAllocator());
