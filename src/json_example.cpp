@@ -99,16 +99,20 @@ std::ostream& operator<<(std::ostream& os, const User& user) {
 }
 
 Date readDate() {
+    std::string line;
     uint16_t year, month, day;
 
     std::cout << "Year: ";
-    std::cin >> year;
+    std::getline(std::cin, line);
+    std::stringstream(line) >> year;
 
     std::cout << "Month: ";
-    std::cin >> month;
+    std::getline(std::cin, line);
+    std::stringstream(line) >> month;
 
     std::cout << "Day: ";
-    std::cin >> day;
+    std::getline(std::cin, line);
+    std::stringstream(line) >> day;
 
     Date result(year, (uint8_t)month, (uint8_t)day);
     return result;
@@ -116,18 +120,19 @@ Date readDate() {
 
 User readUser() {
     uint64_t id;
-    std::string name;
     uint64_t phone;
+    std::string name, line;
 
     std::cout << "Id: ";
-    std::cin >> id;
-    std::cin.get(); // ignore \n
-    
+    std::getline(std::cin, line);
+    std::stringstream(line) >> id;
+
     std::cout << "Name: ";
     std::getline(std::cin, name);
 
     std::cout << "Phone: ";
-    std::cin >> phone;
+    std::getline(std::cin, line);
+    std::stringstream(line) >> phone;
 
     std::cout << "--- Birthday ---" << std::endl;
     Date birthday = readDate();
