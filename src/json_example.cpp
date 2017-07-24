@@ -79,6 +79,24 @@ public:
         return *this;
     }
 
+    rapidjson::Document toJSON() {
+        rapidjson::Value json_val;
+        rapidjson::Document doc;
+
+        doc.SetObject();
+
+        json_val.SetUint64(_id);
+        doc.AddMember("id", json_val, doc.GetAllocator());
+
+        json_val.SetString(_name.c_str(), doc.GetAllocator());
+        doc.AddMember("name", json_val, doc.GetAllocator());
+        
+        json_val.SetUint64(_phone);
+        doc.AddMember("phone", json_val, doc.GetAllocator());
+
+        return doc;
+    }
+
 private:
     uint64_t _id;
     std::string _name;
@@ -143,21 +161,10 @@ User readUser() {
 }
 
 int main() {
-    rapidjson::Document doc;
-    doc.SetObject();
-
     User user = readUser();
     std::cout << user << std::endl;
 
-    rapidjson::Value json_val;
-    json_val.SetUint64(user.getId());
-    doc.AddMember("id", json_val, doc.GetAllocator());
-
-    json_val.SetString(user.getName().c_str(), doc.GetAllocator());
-    doc.AddMember("name", json_val, doc.GetAllocator());
-    
-    json_val.SetUint64(user.getPhone());
-    doc.AddMember("phone", json_val, doc.GetAllocator());
+    rapidjson::Document doc = user.toJSON();
 
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
