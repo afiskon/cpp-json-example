@@ -42,9 +42,11 @@ public:
     uint16_t getYear() const {
         return _year;
     }
+
     uint8_t getMonth() const {
         return _month;
     }
+
     uint8_t getDay() const {
         return _day;
     }
@@ -53,10 +55,12 @@ public:
         _year = year;
         return *this;
     }
+
     Date& setMonth(uint8_t month) {
         _month = month;
         return *this;
     }
+
     Date& setDay(uint8_t day) {
         _day = day;
         return *this;
@@ -75,32 +79,6 @@ public:
       , _name(name)
       , _phone(phone)
       , _birthday(birthday) {
-    }
-
-    uint64_t getId() const {
-        return _id;
-    }
-    const std::string& getName() const {
-        return _name;
-    }
-    uint64_t getPhone() const {
-        return _phone;
-    }
-    Date getBirthday() const {
-        return _birthday;
-    }
-
-    User& setName(const std::string& name) {
-        _name = name;
-        return *this;
-    }
-    User& setPhone(uint64_t phone) {
-        _phone = phone;
-        return *this;
-    }
-    User& setBirthday(Date birthday) {
-        _birthday = birthday;
-        return *this;
     }
 
     rapidjson::Document toJSON() {
@@ -124,6 +102,37 @@ public:
         doc.AddMember("phone", json_val, allocator);
 
         return doc;
+    }
+
+    uint64_t getId() const {
+        return _id;
+    }
+
+    const std::string& getName() const {
+        return _name;
+    }
+
+    uint64_t getPhone() const {
+        return _phone;
+    }
+
+    Date getBirthday() const {
+        return _birthday;
+    }
+
+    User& setName(const std::string& name) {
+        _name = name;
+        return *this;
+    }
+
+    User& setPhone(uint64_t phone) {
+        _phone = phone;
+        return *this;
+    }
+
+    User& setBirthday(Date birthday) {
+        _birthday = birthday;
+        return *this;
     }
 
 private:
