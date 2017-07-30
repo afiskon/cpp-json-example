@@ -242,10 +242,14 @@ int main() {
         rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
         doc.Accept(writer);
 
+        const std::string& str = buffer.GetString();
         std::cout << "Serialized:" << std::endl;
-        std::cout << buffer.GetString() << std::endl;
+        std::cout << str << std::endl;
 
-        User decodedUser = User::fromJSON(doc);
+        // User decodedUser = User::fromJSON(doc);
+        rapidjson::Document doc2;
+        doc2.Parse(str.c_str());
+        User decodedUser = User::fromJSON(doc2);
 
         std::cout << "Deserialized:" << std::endl;
         std::cout << decodedUser << std::endl;
