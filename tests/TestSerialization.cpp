@@ -27,7 +27,7 @@ TEST_F(TestSerialization, DateJson) {
 }
 
 TEST_F(TestSerialization, UserJson) {
-    User u1(123, "Alex", 7916123456, Date(1988, 8, 5));
+    User u1(123, "Alex", 79161234567, Date(1988, 8, 5));
     rapidjson::Document json = u1.toJSON();
     User u2 = User::fromJSON(json);
     ASSERT_EQ(u1, u2);
