@@ -29,3 +29,4 @@ private:
 };
 
 
+std::ostream& operator<<(std::ostream& os, const User& user);

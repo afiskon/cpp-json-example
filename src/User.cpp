@@ -94,3 +94,10 @@ User& User::setBirthday(Date birthday) {
     _birthday = birthday;
     return *this;
 }
+
+std::ostream& operator<<(std::ostream& os, const User& user) {
+    os << "User(id = " << user.getId() << ", name = " << user.getName() << ", phone = " << user.getPhone()
+       << ", birthday = " << user.getBirthday() << ")";
+    return os;
+}
+

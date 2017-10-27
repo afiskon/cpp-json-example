@@ -11,18 +11,6 @@
 #include <sstream>
 #include <stdexcept>
 
-std::ostream& operator<<(std::ostream& os, const Date& date) {
-    os << "Date(year = " << date.getYear() << ", month = " << (int)date.getMonth() << ", day = " << (int)date.getDay()
-       << ")";
-    return os;
-}
-
-std::ostream& operator<<(std::ostream& os, const User& user) {
-    os << "User(id = " << user.getId() << ", name = " << user.getName() << ", phone = " << user.getPhone()
-       << ", birthday = " << user.getBirthday() << ")";
-    return os;
-}
-
 Date readDate() {
     std::string line;
     uint16_t year, month, day;

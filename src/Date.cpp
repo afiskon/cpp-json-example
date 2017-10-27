@@ -56,3 +56,11 @@ Date& Date::setDay(uint8_t day) {
     _day = day;
     return *this;
 }
+
+std::ostream& operator<<(std::ostream& os, const Date& date) {
+    os << "Date(year = " << date.getYear() << ", month = " << (int)date.getMonth() << ", day = " << (int)date.getDay()
+       << ")";
+    return os;
+}
+
+
