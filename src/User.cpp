@@ -95,6 +95,17 @@ User& User::setBirthday(Date birthday) {
     return *this;
 }
 
+bool operator==(const User& u1, const User& u2) {
+    return (u1.getId() == u2.getId()) &&
+            (u1.getName() == u2.getName()) &&
+            (u1.getPhone() == u2.getPhone()) &&
+            (u1.getBirthday() == u2.getBirthday());
+}
+
+bool operator!=(const User& u1, const User& u2) {
+    return !(u1 == u2);
+}
+
 std::ostream& operator<<(std::ostream& os, const User& user) {
     os << "User(id = " << user.getId() << ", name = " << user.getName() << ", phone = " << user.getPhone()
        << ", birthday = " << user.getBirthday() << ")";

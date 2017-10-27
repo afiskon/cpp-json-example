@@ -29,4 +29,6 @@ private:
 };
 
 
+bool operator==(const User& d1, const User& d2);
+bool operator!=(const User& d1, const User& d2);
 std::ostream& operator<<(std::ostream& os, const User& user);
