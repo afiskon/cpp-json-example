@@ -2,9 +2,10 @@
 
 Simple example of working with JSON in C++.
 
-How to build:
+How to build and test:
 
 ```
+sudo apt-get install libgtest-dev
 git submodule init
 git submodule update
 mkdir build
