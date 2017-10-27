@@ -25,5 +25,6 @@ private:
     uint8_t _day;
 };
 
-
+bool operator==(const Date& d1, const Date& d2);
+bool operator!=(const Date& d1, const Date& d2);
 std::ostream& operator<<(std::ostream& os, const Date& date);

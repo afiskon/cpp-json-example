@@ -20,7 +20,10 @@ protected:
 };
 
 TEST_F(TestSerialization, DateJson) {
-    ASSERT_TRUE(true);
+    Date d1(1988, 8, 5);
+    rapidjson::Document json = d1.toJSON();
+    Date d2 = Date::fromJSON(json);
+    ASSERT_EQ(d1, d2);
 }
 
 int main(int argc, char** argv) {

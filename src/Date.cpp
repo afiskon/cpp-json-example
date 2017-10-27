@@ -57,6 +57,16 @@ Date& Date::setDay(uint8_t day) {
     return *this;
 }
 
+bool operator==(const Date& d1, const Date& d2) {
+    return (d1.getDay() == d2.getDay()) &&
+            (d1.getMonth() == d2.getMonth()) &&
+            (d1.getYear() == d2.getYear());
+}
+
+bool operator!=(const Date& d1, const Date& d2) {
+    return !(d1 == d2);
+}
+
 std::ostream& operator<<(std::ostream& os, const Date& date) {
     os << "Date(year = " << date.getYear() << ", month = " << (int)date.getMonth() << ", day = " << (int)date.getDay()
        << ")";
