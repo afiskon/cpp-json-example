@@ -13,8 +13,12 @@ include_directories(
     ${GTEST_INCLUDE_DIRS}
 )
 
-add_executable(TestSerialization ./TestSerialization.cpp ../src/User.cpp ../src/Date.cpp)
-target_link_libraries(TestSerialization ${GTEST_LIBRARIES} Threads::Threads)
+add_executable(
+  TestSerialization ./TestSerialization.cpp
+  ../src/User.cpp ../src/Date.cpp)
+
+target_link_libraries(
+  TestSerialization ${GTEST_LIBRARIES} Threads::Threads)
 
 enable_testing()
 add_test(TestSerialization "./TestSerialization")
