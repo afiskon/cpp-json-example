@@ -3,7 +3,6 @@
 #include <Date.h>
 #include <User.h>
 #include <gtest/gtest.h>
-#include <iostream>
 
 class TestSerialization : public ::testing::Test {
 public:
